@@ -1,0 +1,66 @@
+{
+  "info": {
+    "name": "Fuel Route API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{ "key": "base_url", "value": "http://127.0.0.1:8000" }],
+  "item": [
+    {
+      "name": "Route - New York to Los Angeles (GET)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/route/?start=New York, NY&finish=Los Angeles, CA",
+          "host": ["{{base_url}}"],
+          "path": ["api", "route", ""],
+          "query": [
+            { "key": "start", "value": "New York, NY" },
+            { "key": "finish", "value": "Los Angeles, CA" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Route - Chicago to Houston (POST, GeoJSON)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"start\": \"Chicago, IL\",\n  \"finish\": \"Houston, TX\",\n  \"geometry\": \"geojson\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/api/route/", "host": ["{{base_url}}"], "path": ["api", "route", ""] }
+      }
+    },
+    {
+      "name": "Route - coordinates and an address",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/route/?start=47.6062,-122.3321&finish=1600 Pennsylvania Ave NW, Washington, DC",
+          "host": ["{{base_url}}"],
+          "path": ["api", "route", ""],
+          "query": [
+            { "key": "start", "value": "47.6062,-122.3321" },
+            { "key": "finish", "value": "1600 Pennsylvania Ave NW, Washington, DC" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Error - start outside the USA",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/route/?start=48.8566,2.3522&finish=Denver, CO",
+          "host": ["{{base_url}}"],
+          "path": ["api", "route", ""],
+          "query": [
+            { "key": "start", "value": "48.8566,2.3522" },
+            { "key": "finish", "value": "Denver, CO" }
+          ]
+        }
+      }
+    }
+  ]
+}
